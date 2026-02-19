@@ -18,8 +18,8 @@
     </div>
 
     <div class="topActions">
-      <button id="btnReloadPdf" class="btn ghost" title="Re-parse the PDF">Reload PDF</button>
-      <button id="btnToday" class="btn" title="Jump to today's date (if within plan)">Today</button>
+      <button id="btnReload" class="btn ghost" title="Reload the app">Reload</button>
+      <button id="btnToday" class="btn" title="Jump to today's day (based on 2026 dates)">Today</button>
       <button id="btnResetDay" class="btn danger" title="Uncheck everything for current day">Reset day</button>
     </div>
   </header>
@@ -27,20 +27,19 @@
   <main class="layout">
     <aside class="sidebar">
       <div class="card">
-        <div class="cardTitle">PDF Source</div>
+        <div class="cardTitle">Plan status</div>
         <div class="muted small">
-          Put your plan PDF in the repo as <code>plan.pdf</code>.
-          The site parses it automatically.
+          Your full 29-day plan is built into this website (no PDF needed).
         </div>
         <div class="row gap">
-          <span class="pill" id="pdfStatus">Waiting…</span>
+          <span class="pill" id="statusPill">Loading…</span>
           <span class="pill outline" id="dayCount">Days: —</span>
         </div>
       </div>
 
       <div class="card">
-        <div class="cardTitle">Search Day</div>
-        <input id="daySearch" class="input" placeholder="Type: 1, 12, 19 Feb, steak..." />
+        <div class="cardTitle">Search day</div>
+        <input id="daySearch" class="input" placeholder="Type: 1, 12, steak, exam, uni..." />
       </div>
 
       <div class="card dayListCard">
@@ -50,9 +49,7 @@
 
       <div class="card">
         <div class="cardTitle">Master constants</div>
-        <div class="muted small">
-          Edit if needed — saved on this device.
-        </div>
+        <div class="muted small">Editable — saved on this device.</div>
         <div class="constants" id="constants"></div>
         <button id="btnSaveConstants" class="btn full">Save constants</button>
       </div>
@@ -95,7 +92,7 @@
       </div>
 
       <div class="card">
-        <div class="cardTitle">Full plan for the day (from your PDF)</div>
+        <div class="cardTitle">Full plan for the day</div>
         <div id="dayText" class="dayText"></div>
       </div>
 
@@ -104,9 +101,6 @@
       </footer>
     </section>
   </main>
-
-  <!-- PDF.js from CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js" integrity="sha512-5H6Bv8M6oZp4gD0qv9o5u5wZ6M0qg1m9h0hV2WqP6I1tG3o3gDkN0Yp9TgWm9nq7jF0xY9wz3oH2zWZ9aQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script src="app.js"></script>
 </body>
