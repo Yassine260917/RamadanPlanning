@@ -4,9 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ramadan Planner — Gym Club</title>
-  <link rel="stylesheet" href="styles.css" />
   <meta name="theme-color" content="#0b3d2e" />
+  <link rel="stylesheet" href="styles.css?v=999" />
 </head>
+
 <body>
   <header class="topbar">
     <div class="brand">
@@ -18,90 +19,112 @@
     </div>
 
     <div class="topActions">
-      <button id="btnReload" class="btn ghost" title="Reload the app">Reload</button>
-      <button id="btnToday" class="btn" title="Jump to today's day (based on 2026 dates)">Today</button>
+      <button id="btnReload" class="btn ghost" title="Reload app">Reload</button>
+      <button id="btnToday" class="btn" title="Jump to today's date (if within plan)">Today</button>
       <button id="btnResetDay" class="btn danger" title="Uncheck everything for current day">Reset day</button>
     </div>
   </header>
 
   <main class="layout">
+    <!-- LEFT COLUMN -->
     <aside class="sidebar">
-      <div class="card">
+      <section class="card">
         <div class="cardTitle">Plan status</div>
         <div class="muted small">
           Your full 29-day plan is built into this website (no PDF needed).
         </div>
         <div class="row gap">
-          <span class="pill" id="statusPill">Loading…</span>
-          <span class="pill outline" id="dayCount">Days: —</span>
+          <span class="pill" id="planStatus">Loading…</span>
+          <span class="pill" id="daysCount">Days: —</span>
         </div>
-      </div>
+      </section>
 
-      <div class="card">
+      <section class="card">
         <div class="cardTitle">Search day</div>
-        <input id="daySearch" class="input" placeholder="Type: 1, 12, steak, exam, uni..." />
-      </div>
+        <input id="searchInput" class="input" placeholder="Type: 1, 12, steak, exam, uni..." />
+      </section>
 
-      <div class="card dayListCard">
+      <section class="card">
         <div class="cardTitle">Days</div>
-        <div id="dayList" class="dayList"></div>
-      </div>
+        <div id="daysList" class="daysList"></div>
+      </section>
 
-      <div class="card">
+      <section class="card">
         <div class="cardTitle">Master constants</div>
         <div class="muted small">Editable — saved on this device.</div>
-        <div class="constants" id="constants"></div>
-        <button id="btnSaveConstants" class="btn full">Save constants</button>
-      </div>
+
+        <div class="formGrid">
+          <label class="label">Calories</label>
+          <input id="constCalories" class="input" placeholder="1800 kcal" />
+
+          <label class="label">Protein</label>
+          <input id="constProtein" class="input" placeholder="150–165 g/day" />
+
+          <label class="label">Creatine</label>
+          <input id="constCreatine" class="input" placeholder="5 g after iftar" />
+
+          <label class="label">Water</label>
+          <input id="constWater" class="input" placeholder="3–3.5 L (iftar→imsak)" />
+
+          <label class="label">Steps</label>
+          <input id="constSteps" class="input" placeholder="15000" />
+
+          <label class="label">Gym closed</label>
+          <input id="constClosed" class="input" placeholder="Mon + Fri" />
+
+          <label class="label">Gym closes</label>
+          <input id="constGymCloses" class="input" placeholder="22:00" />
+        </div>
+
+        <button id="btnSaveConstants" class="btn wide">Save constants</button>
+      </section>
     </aside>
 
+    <!-- RIGHT COLUMN -->
     <section class="content">
-      <div class="card hero">
+      <section class="card hero">
         <div class="heroLeft">
-          <div class="heroTitle" id="dayHeaderTitle">Loading…</div>
-          <div class="heroMeta" id="dayHeaderMeta">—</div>
+          <div id="dayTitle" class="heroTitle">Loading…</div>
+          <div id="dayMeta" class="heroMeta">—</div>
         </div>
+
         <div class="heroRight">
+          <div class="small muted">Completion</div>
           <div class="progressWrap">
-            <div class="progressLabel">
-              <span>Completion</span>
-              <span id="completionPct">0%</span>
-            </div>
             <div class="progressBar"><div id="progressFill" class="progressFill"></div></div>
+            <div id="progressPct" class="progressPct">0%</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="grid2">
-        <div class="card">
+      <section class="grid2">
+        <section class="card">
           <div class="cardTitle">Daily check</div>
+          <div class="row space">
+            <button id="btnCheckAll" class="btn small">Check all</button>
+            <button id="btnUncheckAll" class="btn ghost small">Uncheck all</button>
+          </div>
           <div id="checklist" class="checklist"></div>
-          <div class="row gap top">
-            <button id="btnCheckAll" class="btn">Check all</button>
-            <button id="btnUncheckAll" class="btn ghost">Uncheck all</button>
-          </div>
-        </div>
+        </section>
 
-        <div class="card">
+        <section class="card">
           <div class="cardTitle">Notes</div>
-          <textarea id="notes" class="textarea" placeholder="Notes for this day: energy, weight, what changed, etc."></textarea>
-          <div class="row gap top">
-            <button id="btnSaveNotes" class="btn full">Save notes</button>
-          </div>
-        </div>
-      </div>
+          <textarea id="notesBox" class="textarea" placeholder="Notes for this day: energy, weight, what changed, etc."></textarea>
+          <button id="btnSaveNotes" class="btn wide">Save notes</button>
+        </section>
+      </section>
 
-      <div class="card">
+      <section class="card">
         <div class="cardTitle">Full plan for the day</div>
-        <div id="dayText" class="dayText"></div>
-      </div>
-
-      <footer class="footer muted small">
-        Saved locally in your browser (no accounts). If you clear browser storage, checkmarks reset.
-      </footer>
+        <pre id="dayPlan" class="planBox"></pre>
+        <div class="small muted">
+          Saved locally in your browser (no accounts). If you clear browser storage, checkmarks reset.
+        </div>
+      </section>
     </section>
   </main>
 
-  <script src="app.js?v=3" defer></script>
+  <!-- IMPORTANT: cache-bust app.js -->
+  <script src="./app.js?v=999" defer></script>
 </body>
 </html>
