@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramadan Planner — Gym Club</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#0b3d2e" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">RP</div>
+      <div class="brandText">
+        <div class="brandTitle">Ramadan Planner</div>
+        <div class="brandSub">Bahçeşehir • Istanbul • Gym Club Mode</div>
+      </div>
+    </div>
+
+    <div class="topActions">
+      <button id="btnReloadPdf" class="btn ghost" title="Re-parse the PDF">Reload PDF</button>
+      <button id="btnToday" class="btn" title="Jump to today's date (if within plan)">Today</button>
+      <button id="btnResetDay" class="btn danger" title="Uncheck everything for current day">Reset day</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="card">
+        <div class="cardTitle">PDF Source</div>
+        <div class="muted small">
+          Put your plan PDF in the repo as <code>plan.pdf</code>.
+          The site parses it automatically.
+        </div>
+        <div class="row gap">
+          <span class="pill" id="pdfStatus">Waiting…</span>
+          <span class="pill outline" id="dayCount">Days: —</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">Search Day</div>
+        <input id="daySearch" class="input" placeholder="Type: 1, 12, 19 Feb, steak..." />
+      </div>
+
+      <div class="card dayListCard">
+        <div class="cardTitle">Days</div>
+        <div id="dayList" class="dayList"></div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">Master constants</div>
+        <div class="muted small">
+          Edit if needed — saved on this device.
+        </div>
+        <div class="constants" id="constants"></div>
+        <button id="btnSaveConstants" class="btn full">Save constants</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="card hero">
+        <div class="heroLeft">
+          <div class="heroTitle" id="dayHeaderTitle">Loading…</div>
+          <div class="heroMeta" id="dayHeaderMeta">—</div>
+        </div>
+        <div class="heroRight">
+          <div class="progressWrap">
+            <div class="progressLabel">
+              <span>Completion</span>
+              <span id="completionPct">0%</span>
+            </div>
+            <div class="progressBar"><div id="progressFill" class="progressFill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="cardTitle">Daily check</div>
+          <div id="checklist" class="checklist"></div>
+          <div class="row gap top">
+            <button id="btnCheckAll" class="btn">Check all</button>
+            <button id="btnUncheckAll" class="btn ghost">Uncheck all</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardTitle">Notes</div>
+          <textarea id="notes" class="textarea" placeholder="Notes for this day: energy, weight, what changed, etc."></textarea>
+          <div class="row gap top">
+            <button id="btnSaveNotes" class="btn full">Save notes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">Full plan for the day (from your PDF)</div>
+        <div id="dayText" class="dayText"></div>
+      </div>
+
+      <footer class="footer muted small">
+        Saved locally in your browser (no accounts). If you clear browser storage, checkmarks reset.
+      </footer>
+    </section>
+  </main>
+
+  <!-- PDF.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js" integrity="sha512-5H6Bv8M6oZp4gD0qv9o5u5wZ6M0qg1m9h0hV2WqP6I1tG3o3gDkN0Yp9TgWm9nq7jF0xY9wz3oH2zWZ9aQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
